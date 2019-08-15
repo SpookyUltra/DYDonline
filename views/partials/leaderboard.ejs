@@ -1,0 +1,20 @@
+<!-- views/partials/leaderboards.ejs -->
+<div class="col-sm-4">
+    <div class="well">
+        <h3>High Scores</h3>
+        <table style="width:100%">
+            <tr>
+                <td><b>Name</b></td>
+                <td><b>WPM</b></td>
+                <td><b>Date</b></td>
+            </tr>
+            <% for (var i = 0; i < scores.length; i++) { %>
+                <tr>
+                    <td><%= scores[i][0] %></td>
+                    <td><%= scores[i][1] %></td>
+                    <td><%= scores[i][2] %></td>
+                </tr>
+            <% } %>
+        </table>
+    </div>
+</div>

@@ -1,0 +1,44 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+<main>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="jumbotron">
+            <h1>Otto's Typing Race</h1>
+            <p>would you like to play online or solo?</p>
+            <a href="/online">
+                <div id="playOnline" class="onlineBox">
+                    Online
+                </div>
+            </a>
+            <a href="/solo">
+                <div id="playOffline" class="onlineBox">
+                    Solo
+                </div>
+            </a>
+
+        </div>
+    </div>
+
+    <% include ../partials/leaderboard %>
+
+</div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

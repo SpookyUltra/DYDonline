@@ -1,0 +1,73 @@
+#textInput{
+  color: #555555;
+  width: 98%;
+  height: 200px;
+  font-family: Arial,serif;
+  font-size: 26px;
+  margin-top: 2px;
+  margin-bottom: 10px;
+  background: transparent none repeat scroll 0;
+  border-width: medium;
+  visibility: hidden;
+}
+
+.spanGreen{
+  color: #00ff00;
+}
+.spanRed{
+  background-color: #f0a3a3;
+  text-decoration: underline;
+}
+
+#quoteDiv{
+  font: calibri;
+  font-size: 22px;
+}
+
+#counterDiv{
+    /* visibility: hidden; */
+}
+
+.onlineBox{
+    display:inline-block;
+    height:100px;
+    width:40%;
+    text-align: center;
+    color: #333333;
+    font-size: 25px;
+    padding-top:32px;
+}
+
+a:hover{
+    text-decoration: none;
+}
+
+#playOnline{
+    background-color: #00ff00;
+}
+
+#playOffline{
+    background-color: #ffa500;
+}
+
+#playOnline:hover{
+    background-color: #00cc00;
+}
+
+#playOffline:hover{
+    background-color: #cc8600;
+}
+#scoreDiv{
+    display:none;
+}
+
+th, td {
+  padding:5px;
+}
+table tr:nth-child(odd) td{
+    background-color: #dddddd;
+}
+
+table tr:nth-child(even) td{
+    background-color: #ffffff;
+}

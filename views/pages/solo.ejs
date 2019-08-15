@@ -1,0 +1,144 @@
+<!-- views/pages/solo.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    <script src = "/socket.io/socket.io.js"></script>
+    <script src="/scripts/script.js"></script>
+
+    <script>
+
+        var quote = decodeHtml("<%= quote %>");
+
+        var startTime = Date.now();
+        var endTime = Date.now();
+        var spanGreenStart = "<span class='spanGreen'>";
+        var spanredStart = "<span class='spanRed'>";
+        var spanEnd = "</span>";
+        var quoteLength = quote.length;
+        var wordUnits = quoteLength / 5;
+        var wpm = 0
+
+        //work out the user's time (solo)
+        function workOutTime(){
+          endTime = Date.now();
+          var elapsedTime = (endTime - startTime) / 1000;
+          $("#gameDiv").css("display", "none");
+          $("#scoreDiv").css("display", "block");
+          $("#yourScore").text("You finished in " + elapsedTime + " seconds");
+          wpm = wordUnits / elapsedTime * 60;
+          $("#yourWpm").text("WPM: " + wpm);
+        }
+
+        //start the timer as soon as the page loads
+        window.onload = function(){
+            $("#counterDiv").css("visibility", "visible");
+            startTimer();
+        };
+
+    </script>
+
+</head>
+
+
+
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+
+
+
+<main>
+
+    <div id="gameDiv" class="jumbotron">
+        <h1 id="counterDiv">Start race in: <span id="count">5</span></h1>
+        <!-- <div id="counterDiv"></div> -->
+        <div id="lobbyNo"></div>
+        <div id="peopleInLobby"></div>
+        <noscript>Turn on javascript or this won't work</noscript>
+        <p>type the following quote as quickly as you can!</p>
+        <div id="yourCarDiv">You:<br>
+            <span id="yourCar"></span>
+        </div>
+
+        <h2>Quote:</h2>
+
+        <div id="quoteDiv"><%= quote %></div>
+
+        <div id="authorDiv">―<%= author %></div>
+
+        <textarea type="text" id="textInput" spellcheck="false" autocorrect="off" autocapitalize="off"></textarea>
+
+        <script>
+            var track = "#__________________________________________________________________________________________________#";
+            var yourTrack  = setCharAt(track, 0, "O");
+            var index = 0;
+            //update the track and quote (solo)
+            $("#yourCar").text(yourTrack)
+            $("#textInput").keyup(function(){
+                var textAreaText = $("textarea#textInput").val()
+                var numberOfCorrectChars = 0
+                var numberOfIncorrectChars = 0
+                for (var i = 0; i < textAreaText.length; i++) {
+
+                  if(textAreaText.charAt(i) == quote.charAt(i) && numberOfIncorrectChars == 0 ){
+                    if(numberOfIncorrectChars == 0){
+                      numberOfCorrectChars += 1
+                    }
+                  }else{
+                    numberOfIncorrectChars += 1
+                  }
+
+                }
+                var newQuote = quote;
+                if(numberOfIncorrectChars != 0){
+                  var newQuote = [newQuote.slice(0, numberOfIncorrectChars+numberOfCorrectChars), spanEnd, newQuote.slice(numberOfIncorrectChars+numberOfCorrectChars)].join('');
+                  var newQuote = [newQuote.slice(0, numberOfCorrectChars), spanredStart, newQuote.slice(numberOfCorrectChars)].join('');
+                }
+
+                var newQuote = [newQuote.slice(0, numberOfCorrectChars), spanEnd, newQuote.slice(numberOfCorrectChars)].join('');
+                newQuote = spanGreenStart + newQuote;
+                $("#quoteDiv").html(newQuote);
+                index = Math.floor(numberOfCorrectChars/quoteLength*100-1)
+                yourTrack  = setCharAt(track, index, "O");
+                $("#yourCar").text(yourTrack);
+
+                // alert(numberOfIncorrectChars);
+
+                if(quote == $("textarea#textInput").val()){
+                  workOutTime();
+                }
+            });
+        </script>
+
+
+
+
+    </div>
+
+    <div id = "scoreDiv" class="jumbotron">
+        <span id="yourScore"></span>
+        <br>
+        <span id="yourWpm"></span>
+        <h3>Submit Score</h3>
+        <form onsubmit="return false">
+            3 letter name:
+            <input id="nameInput" type="text" maxlength="3"></input>
+            <br>
+            <br>
+            <input onclick="buttonClicked()" type="submit">
+        </form>
+    </div>
+
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>
