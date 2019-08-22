@@ -1,0 +1,54 @@
+<!-- views/pages/index.ejs -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <% include ../partials/head %>
+    <script src = "/socket.io/socket.io.js"></script>
+    
+    <script>
+
+    function loadDoc() {
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
+         document.getElementById("demo").innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", "ajax_info.txt", true);
+      xhttp.send();
+    }
+
+    </script>
+
+</head>
+<body class="container">
+
+<header>
+    <% include ../partials/header %>
+</header>
+
+
+
+
+<main>
+<div class="row">
+    <div class="col-sm-8">
+        <div class="jumbotron" id="demo">
+            <h1>Otto's Typing Race</h1>
+            <p>This is a typing race game. Try your best to beat your opponent, or practise solo. High scores will be displayed on the leaderboard!</p>
+            <img style = "filter: blur(5px);" src="data:image/png;base64, <%= image  %>"/>
+            <button type="button" onclick="loadDoc()">Change Content</button>
+        </div>
+    </div>
+
+
+</div>
+</main>
+
+<footer>
+    <% include ../partials/footer %>
+</footer>
+
+</body>
+</html>

@@ -9,6 +9,7 @@ const dateFormat = require('dateformat');
 
 
 let db = new sqlite3.Database('./db/quotes.db');
+let database = new sqlite3.Database('./db/game.db');
 
 
 // set the view engine to ejs
@@ -29,7 +30,7 @@ app.get('/online', function(req, res) {
     res.render('pages/online');
 });
 
-//solo page
+// solo page
 app.get('/solo', function(req, res) {
     db.all("SELECT * FROM quotes WHERE id IN (SELECT id FROM quotes ORDER BY RANDOM() LIMIT 1)", function(err,rows){
         var quote = ""
@@ -61,7 +62,7 @@ app.get('/about', function(req, res) {
     });
 });
 
-//index page
+// index page
 app.get('/', function(req, res) {
     db.all("SELECT name, wpm, date FROM SCOREBOARD ORDER BY wpm DESC; LIMIT 10", function(err,rows){
         var scores = []
@@ -72,6 +73,20 @@ app.get('/', function(req, res) {
         // console.log(scores)
         res.render('pages/index',{
             "scores": scores
+        });
+    });
+});
+
+app.get('/otto', function(req, res) {
+    database.all("SELECT image FROM Tbl_background ORDER BY background_ID DESC; LIMIT 10", function(err,rows){
+        var image = ""
+        rows.forEach(function (row) {
+          image = row.image
+
+        });
+        // console.log(scores)
+        res.render('pages/ottoTest',{
+            "image": image
         });
     });
 });
