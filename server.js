@@ -78,7 +78,7 @@ app.get('/', function(req, res) {
 });
 
 app.get('/otto', function(req, res) {
-    database.all("SELECT image FROM Tbl_background ORDER BY background_ID DESC; LIMIT 10", function(err,rows){
+    database.all("SELECT image FROM Tbl_background WHERE background_ID = 1", function(err,rows){
         var image = ""
         rows.forEach(function (row) {
           image = row.image
@@ -161,6 +161,24 @@ io.on('connection', function(socket) {
         io.sockets.emit('broadcast',{ description: clients + ' clients connected!'});
         console.log(socket.id + ' disconnected');
     });
+
+
+
+
+    socket.on('ottoTestChanged', function(data) {
+        console.log("hi")
+        database.all("SELECT image FROM Tbl_background WHERE background_ID = 2", function(err,rows){
+            var image = ""
+            rows.forEach(function (row) {
+              image = row.image
+            });
+            // console.log(scores)
+            io.sockets.emit('changeImage',image);
+
+        });
+    });
+
+
 });
 var port = 80
 http.listen(port, function() {

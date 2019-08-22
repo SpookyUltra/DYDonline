@@ -5,19 +5,18 @@
 <head>
     <% include ../partials/head %>
     <script src = "/socket.io/socket.io.js"></script>
-    
+
     <script>
+    var socket = io();
 
     function loadDoc() {
-      var xhttp = new XMLHttpRequest();
-      xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-         document.getElementById("demo").innerHTML = this.responseText;
-        }
-      };
-      xhttp.open("GET", "ajax_info.txt", true);
-      xhttp.send();
+      socket.emit('ottoTestChanged');
     }
+
+    socket.on('changeImage', function(data) {
+        console.log(data)
+        $("#mainImg").attr("src", "data:image/png;base64, "+data);
+    })
 
     </script>
 
@@ -37,7 +36,7 @@
         <div class="jumbotron" id="demo">
             <h1>Otto's Typing Race</h1>
             <p>This is a typing race game. Try your best to beat your opponent, or practise solo. High scores will be displayed on the leaderboard!</p>
-            <img style = "filter: blur(5px);" src="data:image/png;base64, <%= image  %>"/>
+            <img id="mainImg" style = "filter: blur(5px);" src="data:image/png;base64, <%= image  %>"/>
             <button type="button" onclick="loadDoc()">Change Content</button>
         </div>
     </div>
