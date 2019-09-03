@@ -25,59 +25,9 @@ app.use("/socket.io",express.static(__dirname + "/socket.io"));
 
 // use res.render to load up an ejs view file
 
-// index page
-app.get('/online', function(req, res) {
-    res.render('pages/online');
-});
 
-// solo page
-app.get('/solo', function(req, res) {
-    db.all("SELECT * FROM quotes WHERE id IN (SELECT id FROM quotes ORDER BY RANDOM() LIMIT 1)", function(err,rows){
-        var quote = ""
-        var author = ""
-        rows.forEach(function (row) {
-          // console.log('row: ' + row.quote);
-          quote = row.quote
-          author = row.author
-        });
-        res.render('pages/solo',{
-            "quote": quote,
-            "author": author
-        });
-    });
-});
 
-// about page
-app.get('/about', function(req, res) {
-    db.all("SELECT name, wpm, date FROM SCOREBOARD ORDER BY wpm DESC; LIMIT 10", function(err,rows){
-        var scores = []
-        rows.forEach(function (row) {
-          scores.push([row.name, row.wpm, dateFormat(row.date,"m/d/yy HH:MM:ss")])
-
-        });
-        // console.log(scores)
-        res.render('pages/about',{
-            "scores": scores
-        });
-    });
-});
-
-// index page
 app.get('/', function(req, res) {
-    db.all("SELECT name, wpm, date FROM SCOREBOARD ORDER BY wpm DESC; LIMIT 10", function(err,rows){
-        var scores = []
-        rows.forEach(function (row) {
-          scores.push([row.name, row.wpm, dateFormat(row.date,"m/d/yy HH:MM:ss")])
-
-        });
-        // console.log(scores)
-        res.render('pages/index',{
-            "scores": scores
-        });
-    });
-});
-
-app.get('/otto', function(req, res) {
     database.all("SELECT image FROM Tbl_background WHERE background_ID = 1", function(err,rows){
         var image = ""
         rows.forEach(function (row) {
