@@ -3,7 +3,7 @@
     "main": "server.js",
     "dependencies": {
         "dateformat": "^3.0.3",
-        "ejs": "^1.0.0",
+        "ejs": "^2.5.5",
         "express": "^4.16.4",
         "mongodb": "^3.3.2",
         "nodemon": "^1.19.1",
