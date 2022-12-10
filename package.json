@@ -4,7 +4,7 @@
     "dependencies": {
         "dateformat": "^3.0.3",
         "ejs": "^1.0.0",
-        "express": "^4.16.4",
+        "express": "^4.17.3",
         "mongodb": "^3.3.2",
         "nodemon": "^1.19.1",
         "socket.io": "^2.2.0",
